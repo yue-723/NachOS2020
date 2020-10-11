@@ -30,8 +30,7 @@
 #define SC_ThreadFork	9
 #define SC_ThreadYield	10
 #define SC_PrintInt	11
-#define SC_Example	12
-#define SC_Sleep	13
+#define SC_Example	13
 #ifndef IN_ASM
 
 /* The system call interface.  These are the operations the Nachos
@@ -123,16 +122,13 @@ void Close(OpenFileId id);
  */
 void ThreadFork(void (*func)());
 
+void Example(int number);
 /* Yield the CPU to another runnable thread, whether in this address space 
  * or not. 
  */
 void ThreadYield();		
 
 void PrintInt(int number);	//my System Call
-
-void Example(int number);       //Example call
-
-void Sleep(int number);		//Sleep call 
 #endif /* IN_ASM */
 
 #endif /* SYSCALL_H */

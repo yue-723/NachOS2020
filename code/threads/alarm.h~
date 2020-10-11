@@ -33,7 +33,7 @@ class sleepList {
   private:
 	class sleepThread {
 	   public:
-		sleepThread(Thread *t, int x):
+		sleepThread(Thread *t, int x)：
 			sleeper(t),when(x) {};
 		Thread *sleeper;
 		int when;

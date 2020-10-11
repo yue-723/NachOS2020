@@ -75,7 +75,7 @@ Example:
 	.end Example
 
 	.globl Sleep
-	.ent   Sleep
+	.ent Sleep
 Sleep:
 	addiu $2,$0,SC_Sleep
 	syscall
@@ -83,7 +83,7 @@ Sleep:
 	.end 	Sleep
 
 	.globl Join
-	.ent   Join
+	.ent Join
 Join:
 	addiu $2,$0,SC_Join
 	syscall
