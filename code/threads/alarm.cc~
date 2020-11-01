@@ -50,13 +50,21 @@ void Alarm::CallBack()
 {
     Interrupt *interrupt = kernel->interrupt;
     MachineStatus status = interrupt->getStatus();
+<<<<<<< HEAD
+    kernel->currentThread->setPriority(kernel->currentThread->getPriority() - 1);
     bool woken = _sleepList.PutToReady();
     if (status == IdleMode && !woken && _sleepList.IsEmpty()) {	// is it time to quit?
+=======
+>>>>>>> 1c9dd52c490ad28c8614679e8ccc64282d65f46f
         if (!interrupt->AnyFutureInterrupts()) {
 	    timer->Disable();	// turn off the timer
 	}
-    } else {			// there's someone to preempt
-	interrupt->YieldOnReturn();
+    }
+    else {			// there's someone to preempt
+	if(kernel->scheduler->getSchedulerType() == RR ||
+            kernel->scheduler->getSchedulerType() == Priority ) {
+		interrupt->YieldOnReturn();
+	}
     }
 }
 
@@ -74,7 +82,7 @@ bool sleepList::IsEmpty() {
 
 void sleepList::PutToSleep(Thread *t,int x) {
 	ASSERT(kernel->interrupt->getLevel() == IntOff);
-	_threadlist.push_back(sleepThread(t, _current_interrupt +x ));
+	_threadlist.push_back(sleepThread(t, _current_interrupt + x ));
 	t->Sleep(false);
 }
 
