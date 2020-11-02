@@ -58,9 +58,10 @@ void Alarm::CallBack()
 	}
     }
     else {			// there's someone to preempt
-	if(kernel->scheduler->getSchedulerType() == RR ||
-            kernel->scheduler->getSchedulerType() == Priority ) {
-		interrupt->YieldOnReturn();
+	if(kernel->scheduler->getSchedulerType() == RR /*||
+            kernel->scheduler->getSchedulerType() == Priority*/ ) {
+	    cout << "=== interrupt->YieldOnReturn ==="<<endl;
+	    interrupt->YieldOnReturn();
 	}
     }
 }
@@ -68,6 +69,10 @@ void Alarm::CallBack()
 void  Alarm::WaitUntil(int x) {
 	IntStatus oldLevel = kernel->interrupt->SetLevel(IntOff);
 	Thread *t = kernel->currentThread;
+
+	int worktime = kernel->stats->userTicks - t->getStartTime();
+	t->setBurstTime(t->getBurstTime() + worktime);
+	t->setStartTime(kernel->stats->userTicks);
 	cout << "Alarm::WaitUntil go sleep" << endl;
 	_sleepList.PutToSleep(t, x);
 	kernel->interrupt->SetLevel(oldLevel);

@@ -94,8 +94,8 @@ Scheduler::ReadyToRun (Thread *thread)
     ASSERT(kernel->interrupt->getLevel() == IntOff);
     DEBUG(dbgThread, "Putting thread on ready list: " << thread->getName());
     cout << "Ready Thread " <<thread->getName() 
-	<<"'s Priority: "<< thread->getPriority()
-	<<" ,BurstTime: "<< thread->getBurstTime() << endl;
+	<<"'s priority: "<< thread->getPriority()
+	<<" ,burstTime: "<< thread->getBurstTime() << endl;
     thread->setStatus(READY);
     readyList->Append(thread);
 }
@@ -143,8 +143,8 @@ Scheduler::Run (Thread *nextThread, bool finishing)
     Thread *oldThread = kernel->currentThread;
  
     cout << "Current Thread "<< oldThread->getName()
-	<<"'s Priority: "<< oldThread->getPriority()
-	<<" ,BurstTime: "<< oldThread->getBurstTime() << endl;
+	<<"'s priority: "<< oldThread->getPriority()
+	<<" ,burstTime: "<< oldThread->getBurstTime() << endl;
     cout <<"Next Thread: "<< nextThread->getName() <<endl;
 
     ASSERT(kernel->interrupt->getLevel() == IntOff);

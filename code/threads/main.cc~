@@ -74,7 +74,7 @@ main(int argc, char **argv)
     
     DEBUG(dbgThread, "Entering main");
 
-    SchedulerType type = RR;
+    SchedulerType = RR;
     if (strcmp(argv[1] , "FCFS") == 0){
 	type = FIFO;
     }else if (strcmp(argv[1] , "SJF") == 0) {

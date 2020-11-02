@@ -54,12 +54,6 @@ UserProgKernel::UserProgKernel(int argc, char **argv)
 void
 UserProgKernel::Initialize()
 {
-	Initialize(RR);
-}
-
-void
-UserProgKernel::Initialize(SchedulerType type)
-{
     ThreadedKernel::Initialize();	// init multithreading
 
     machine = new Machine(debugUserProg);
