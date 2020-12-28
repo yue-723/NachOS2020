@@ -190,7 +190,7 @@ Machine::Translate(int virtAddr, int* physAddr, int size, bool writing)
     unsigned int pageFrame;
     
     int victim;
-    //static int Fifo=0;
+    static int Fifo=0;
     unsigned int j;
 
     DEBUG(dbgAddr, "\tTranslate " << virtAddr << (writing ? " , write" : " , read"));
@@ -272,7 +272,7 @@ Machine::Translate(int virtAddr, int* physAddr, int size, bool writing)
 				kernel->machine->PhyPageName[victim] = pageTable[vpn].ID;
 				main_tab[victim] = &pageTable[vpn];
 				//if (rpType = fifo)
-				//	Fifo++;
+					Fifo++;
 				printf("page replacement finished\n");
 			}	    
 		//return PageFaultException;

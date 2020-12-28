@@ -55,6 +55,7 @@ void
 UserProgKernel::Initialize()
 {
 	Initialize(RR);
+	
 }
 
 void
@@ -64,6 +65,8 @@ UserProgKernel::Initialize(SchedulerType type)
 
     machine = new Machine(debugUserProg);
     fileSystem = new FileSystem();
+
+    vm_disk = new SynchDisk("New Disk");
 #ifdef FILESYS
     synchDisk = new SynchDisk("New SynchDisk");
 #endif // FILESYS

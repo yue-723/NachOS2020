@@ -30,7 +30,7 @@
 const unsigned int PageSize = 128; 		// set the page size equal to
 					// the disk sector size, for simplicity
 
-const unsigned int NumPhysPages = 1024;
+const unsigned int NumPhysPages = 32;
 const int MemorySize = (NumPhysPages * PageSize);
 const int TLBSize = 4;			// if there is a TLB, make it small
 
@@ -49,6 +49,7 @@ enum ExceptionType { NoException,           // Everything ok!
 		     
 		     NumExceptionTypes
 };
+
 
 // User program CPU state.  The full set of MIPS registers, plus a few
 // more because we need to be able to start/stop a user program between
@@ -132,6 +133,15 @@ class Machine {
     TranslationEntry *pageTable;
     unsigned int pageTableSize;
     bool ReadMem(int addr, int size, int* value);
+    bool usedPhyPage[NumPhysPages];	//record which page in memory is used
+    bool usedvirPage[NumPhysPages];	//record which page in vmdisk is used
+    int ID_num;
+    int PhyPageName[NumPhysPages];
+    int count[NumPhysPages];		//for LRU
+    int sector_number;			//record which sector the disk is saving
+
+    TranslationEntry *main_tab[NumPhysPages];
+
   private:
 
 // Routines internal to the machine simulation -- DO NOT call these directly

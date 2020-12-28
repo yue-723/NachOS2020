@@ -31,16 +31,17 @@ class UserProgKernel : public ThreadedKernel {
 
     void SelfTest();		// test whether kernel is working
 
+    SynchDisk *vm_disk;		//save the page that exceed memory size
 // These are public for notational convenience.
     Machine *machine;
     FileSystem *fileSystem;
-
+    bool debugUserProg;
 #ifdef FILESYS
     SynchDisk *synchDisk;
 #endif // FILESYS
 
   private:
-    bool debugUserProg;		// single step user program
+		// single step user program
 	Thread* t[10];
 	char*	execfile[10];
 	int	execfileNum;

@@ -23,8 +23,10 @@
 // global variables
 KernelType *kernel;
 Debug *debug;
-
-
+enum ReplacementType{
+	fifo,
+	LRU
+};
 //----------------------------------------------------------------------
 // Cleanup
 //	Delete kernel data structures; called when user hits "ctl-C".
@@ -84,7 +86,11 @@ main(int argc, char **argv)
     }else if (strcmp(argv[1] , "RR") == 0) {
 	type = RR;
     }
-
+    /*ReplacementType rpType = LRU;
+    if (strcmp(argv[2] , "FIFO") == 0){
+	rpType = fifo;
+    }else if (strcmp(argv[2] , "LRU") == 0) {
+	rpType = LRU;*/
     kernel = new KernelType(argc, argv);
     kernel->Initialize();
     
