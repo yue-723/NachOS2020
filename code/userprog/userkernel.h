@@ -16,6 +16,7 @@
 #include "filesys.h"
 #include "machine.h"
 #include "synchdisk.h"
+
 class SynchDisk;
 class UserProgKernel : public ThreadedKernel {
   public:
@@ -30,7 +31,9 @@ class UserProgKernel : public ThreadedKernel {
     void Run();			// do kernel stuff 
 
     void SelfTest();		// test whether kernel is working
-
+    
+    int replaceType;
+    
     SynchDisk *vm_disk;		//save the page that exceed memory size
 // These are public for notational convenience.
     Machine *machine;

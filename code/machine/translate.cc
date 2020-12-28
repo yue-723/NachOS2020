@@ -190,7 +190,7 @@ Machine::Translate(int virtAddr, int* physAddr, int size, bool writing)
     unsigned int pageFrame;
     
     int victim;
-    //static int Fifo=0;
+    static int Fifo=0;
     unsigned int j;
 
     DEBUG(dbgAddr, "\tTranslate " << virtAddr << (writing ? " , write" : " , read"));
@@ -240,13 +240,15 @@ Machine::Translate(int virtAddr, int* physAddr, int size, bool writing)
 				char* buf_2;
 				buf_2 = new char[PageSize];
 				//fifo
-				//if (rpType = fifo){
-				//	victim = Fifo%32;
-				//}
-				/*else if (rpType = LRU)*/{
+				if (kernel->replaceType == 0){
+					printf("page replacement using FIFO\n");
+					victim = Fifo%32;
+				}
+				else if (kernel->replaceType == 1){
 				//LRU
-				int min = pageTable[0].count;
+					int min = pageTable[0].count;
 					victim = 0;
+					printf("page replacement using LRU\n");
 					for(int temp=0;temp<32;temp++){
 						if(min > pageTable[temp].count){
 							min = pageTable[temp].count;
@@ -271,8 +273,8 @@ Machine::Translate(int virtAddr, int* physAddr, int size, bool writing)
 				pageTable[vpn].physicalPage = victim;
 				kernel->machine->PhyPageName[victim] = pageTable[vpn].ID;
 				main_tab[victim] = &pageTable[vpn];
-				//if (rpType = fifo)
-				//	Fifo++;
+				if (kernel->replaceType == 0)
+					Fifo++;
 				printf("page replacement finished\n");
 			}	    
 		//return PageFaultException;
